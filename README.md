@@ -160,6 +160,6 @@ HuggingFace for pre-trained BERT models
 Microsoft Recommenders team for collaborative filtering algorithms
 Sentence-Transformers library for semantic similarity tools
 
-This is not the full readme for the finsished applicatipn, once this project is finsihed, I will give a updated version. 
+This is not the full readme for the finished application, once this project is finsihed, I will give a updated version. 
 
 
