@@ -172,4 +172,6 @@ This is not the full readme for the finished application, once this project is f
 
 Note: When building it into Docker, most common issues were with the versions of Torch, Transformers, and Flask. I suggest building it to ensure that the reqiurements.txt is functional.
 
+Also be aware that newer versions of Python are not compatible with Torch as well as flask as many of these dependencies are not regularly updated. 
+
 
