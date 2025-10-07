@@ -168,7 +168,7 @@ HuggingFace for pre-trained BERT models
 Microsoft Recommenders team for collaborative filtering algorithms
 Sentence-Transformers library for semantic similarity tools
 
-This is not the full readme for the finished application, once this project is finsihed, I will give a updated version. 
+This is not the full readme for the finished application, once this project is finished, I will give a updated version. 
 
 Note: When building it into Docker, most common issues were with the versions of Torch, Transformers, and Flask. I suggest building it to ensure that the reqiurements.txt is functional.
 
