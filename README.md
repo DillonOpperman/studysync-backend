@@ -154,7 +154,7 @@ then when searching
 
 This project is licensed by apache 2.0 
 
-author is by me, Dillon Opperman. I would lik3 to acknowledge 
+author is by me, Dillon Opperman. I would like to acknowledge 
 
 HuggingFace for pre-trained BERT models
 Microsoft Recommenders team for collaborative filtering algorithms
