@@ -26,20 +26,28 @@ bash# Create virtual environment
 python -m venv venv
 
 # Activate virtual environment
-Activate virtual enviroment
+
 # Windows:
 venv\Scripts\activate
+
 # macOS/Linux:
 source venv/bin/activate
 
 Step 3: Install Dependencies
+
 bashpip install -r requirements.txt
+
 Note: The first time you run the application, Sentence Transformers will download the BERT model (all-MiniLM-L6-v2, ~90MB). This is a one-time download.
+
 Step 4: Run the Application
+
 bashpython app.py
+
 The server will start on http://localhost:5000
 Verify it's running:
+
 bashcurl http://localhost:5000/api/health
+
 # Expected response: {"status":"healthy","ai_model":"loaded"}
 
 you know should have
