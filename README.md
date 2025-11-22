@@ -651,7 +651,7 @@ This project was made possible thanks to the following open-source projects and 
 
 For questions, issues, or contributions:
 
-1. **Issues:** Open an issue on [GitHub Issues](https://github.com/DillonOpperman/study-group-matcher-backend/issues)
+1. **Issues:** Open an issue on [GitHub Issues](https://github.com/DillonOpperman/studysync-backend/blob/main/README.md/issues)
 2. **Email:** Contact dlopper@ilstu.edu
 3. **Documentation:** Refer to the [API Documentation](#api-endpoints) section above
 
