@@ -18,7 +18,6 @@ This repository contains the backend service for **StudySync**, an AI-powered st
 - [AI Matching Algorithm](#ai-matching-algorithm)
 - [Project Structure](#project-structure)
 - [Troubleshooting](#troubleshooting)
-- [Documentation Videos](#documentation-videos)
 - [License](#license)
 - [Author](#author)
 - [Acknowledgements](#acknowledgements)
