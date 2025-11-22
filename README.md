@@ -1,4 +1,7 @@
-Here is the complete Markdown code for your README.md file. You can copy this directly into your code editor.Markdown# StudySync Backend 
+Here is the complete and final Markdown code for your **`README.md`** file, incorporating all the clean formatting, correct code blocks, and structured sections. You can copy this entire block and paste it directly into your file.
+
+````markdown
+# StudySync Backend 
 
 This repository contains the backend service for **StudySync**, a study group recommendation and management application. It utilizes machine learning and semantic similarity techniques to match users based on their academic profiles and study preferences.
 
@@ -48,7 +51,14 @@ Follow these steps to get the backend running locally.
 ```bash
 git clone [https://github.com/YOUR_USERNAME/studysync-backend.git](https://github.com/YOUR_USERNAME/studysync-backend.git)
 cd studysync-backend
-Step 2: Set Up Python EnvironmentIt is highly recommended to use a virtual environment to isolate project dependencies.Bash# Create virtual environment
+````
+
+### Step 2: Set Up Python Environment
+
+It is highly recommended to use a virtual environment to isolate project dependencies.
+
+```bash
+# Create virtual environment
 python -m venv venv
 
 # Activate virtual environment
@@ -57,14 +67,63 @@ venv\Scripts\activate
 
 # macOS/Linux:
 source venv/bin/activate
-Step 3: Install DependenciesInstall all required packages listed in requirements.txt.Bashpip install -r requirements.txt
-Note: The first time you run the application, the Sentence Transformers library will automatically download the pre-trained BERT model (all-MiniLM-L6-v2, approximately 90MB). This is a one-time download.Step 4: Run the ApplicationExecute the main application file:Bashpython app.py
-The server will start and be accessible at http://localhost:5000. Verification and API EndpointsHealth CheckVerify the server is running and the AI model has loaded successfully.MethodEndpointDescriptionGET/api/healthChecks application status and AI model loading.Example Verification (using curl):Bashcurl http://localhost:5000/api/health
-Expected Response:JSON{
+```
+
+### Step 3: Install Dependencies
+
+Install all required packages listed in `requirements.txt`.
+
+```bash
+pip install -r requirements.txt
+```
+
+> **Note:** The first time you run the application, the **Sentence Transformers** library will automatically download the pre-trained **BERT model** (`all-MiniLM-L6-v2`, approximately 90MB). This is a one-time download.
+
+### Step 4: Run the Application
+
+Execute the main application file:
+
+```bash
+python app.py
+```
+
+The server will start and be accessible at **`http://localhost:5000`**.
+
+-----
+
+##  Verification and API Endpoints
+
+### Health Check
+
+Verify the server is running and the AI model has loaded successfully.
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/health` | Checks application status and AI model loading. |
+
+**Example Verification (using `curl`):**
+
+```bash
+curl http://localhost:5000/api/health
+```
+
+**Expected Response:**
+
+```json
+{
   "status": "healthy",
   "ai_model": "loaded"
 }
-Example AI Endpoint ResponsesThe following examples demonstrate the JSON structure for key AI-powered endpoints:User Profile Creation (Example)JSON{
+```
+
+### Example AI Endpoint Responses
+
+The following examples demonstrate the JSON structure for key AI-powered endpoints:
+
+#### User Profile Creation (Example)
+
+```json
+{
   "id": "user_123",
   "name": "John Doe",
   "email": "john@university.edu",
@@ -87,7 +146,12 @@ Example AI Endpoint ResponsesThe following examples demonstrate the JSON structu
     "studyGoals": ["Exam Preparation", "Concept Review"]
   }
 }
-Group Recommendation (Example)JSON{
+```
+
+#### Group Recommendation (Example)
+
+```json
+{
   "success": true,
   "recommendations": [
     {
@@ -110,7 +174,12 @@ Group Recommendation (Example)JSON{
     }
   ]
 }
-Group Search (Example)JSON{
+```
+
+#### Group Search (Example)
+
+```json
+{
   "results": [
     {
       "id": 1,
@@ -125,4 +194,37 @@ Group Search (Example)JSON{
     }
   ]
 }
- Docker Deployment (Optional)For containerized deployment, we suggest testing the build process.Note on Dependencies: When building into Docker, the most common issues encountered were related to version conflicts among PyTorch, Transformers, and Flask. Building the container is the best way to ensure the current requirements.txt is fully functional in an isolated environment.📝 License and AcknowledgementsLicenseThis project is licensed under the Apache License 2.0.AuthorDillon OppermanAcknowledgementsWe acknowledge the significant contributions of the following projects and teams:HuggingFace for providing pre-trained BERT models.Sentence-Transformers library for the semantic similarity tools.Microsoft Recommenders team for inspiration on collaborative filtering algorithms.
+```
+
+-----
+
+##  Docker Deployment (Optional)
+
+For containerized deployment, we suggest testing the build process.
+
+> **Note on Dependencies:** When building into Docker, the most common issues encountered were related to version conflicts among **PyTorch**, **Transformers**, and **Flask**. Building the container is the best way to ensure the current `requirements.txt` is fully functional in an isolated environment.
+
+-----
+
+##  License and Acknowledgements
+
+### License
+
+This project is licensed under the **Apache License 2.0**.
+
+### Author
+
+  * Dillon Opperman
+
+### Acknowledgements
+
+We acknowledge the significant contributions of the following projects and teams:
+
+  * **HuggingFace** for providing pre-trained BERT models.
+  * **Sentence-Transformers library** for the semantic similarity tools.
+  * **Microsoft Recommenders team** for inspiration on collaborative filtering algorithms.
+
+<!-- end list -->
+
+```
+```
