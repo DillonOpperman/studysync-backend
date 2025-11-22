@@ -1,4 +1,4 @@
-  The backend development for this app is the following.
+**  The backend development for this app is the following.
 
 Framework: Flask 2.3.3
 AI/ML Libraries:
@@ -175,3 +175,4 @@ Note: When building it into Docker, most common issues were with the versions of
 Also be aware that newer versions of Python are not compatible with Torch as well as flask as many of these dependencies are not regularly updated. 
 
 
+**
