@@ -661,9 +661,341 @@ For questions, issues, or contributions:
 **Version:** 1.0.0  
 **Status:** Active Development for MAD Contest
 
+## Model Documentation 
+
+# Database Models & Schema
+
+This section documents the data models used in the StudySync application.
+
+---
+
+##  Database Architecture
+
+StudySync uses **MySQL** with **SQLAlchemy ORM** to manage the following entities:
+
+### Entity Relationship Diagram
+
+```
+Users (1) ──── (Many) GroupMembers (Many) ──── (1) StudyGroups
+  │                                                     │
+  │                                                     │
+  └──── (Many) Messages (Many) ──────────────────────┘
+           │
+           └──── (Many) MessageReactions
+```
+
+---
+
+##  Data Models
+
+### 1. User Model
+
+Stores student profile information and authentication data.
+
+**Table:** `users`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | String(50) | Primary key, generated UUID |
+| `name` | String(100) | Student's full name |
+| `email` | String(100) | Unique .edu email address |
+| `password_hash` | String(255) | Bcrypt hashed password |
+| `university` | String(100) | University name |
+| `major` | String(100) | Field of study |
+| `year` | String(50) | Academic year (Freshman, Sophomore, etc.) |
+| `learning_style` | Text | Description of how student learns best |
+| `study_environments` | JSON | Preferred study locations |
+| `study_methods` | JSON | Preferred study techniques |
+| `subjects` | JSON | Array of subjects studying |
+| `schedule` | JSON | Weekly availability schedule |
+| `performance_level` | Integer | Academic performance (1-5 scale) |
+| `group_preferences` | JSON | Study group preferences |
+| `created_at` | Timestamp | Account creation date |
+
+**Example User Data:**
+```json
+{
+  "id": "user_1701234567.890_alice",
+  "name": "Alice Johnson",
+  "email": "alice@ilstu.edu",
+  "university": "Illinois State University",
+  "major": "Computer Science",
+  "year": "Junior",
+  "learning_style": "I learn best with visual aids and hands-on coding practice",
+  "subjects": ["Computer Science", "Mathematics", "Data Structures"],
+  "schedule": {
+    "Monday": ["Evening (5-9 PM)"],
+    "Wednesday": ["Evening (5-9 PM)"],
+    "Friday": ["Afternoon (12-5 PM)"]
+  },
+  "performanceLevel": 4,
+  "groupPreferences": {
+    "groupSize": 4,
+    "sessionDuration": 2,
+    "studyGoals": ["Exam Preparation", "Project Work"]
+  }
+}
+```
+
+---
+
+### 2. StudyGroup Model
+
+Represents a study group created by a user.
+
+**Table:** `study_groups`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | String(50) | Primary key, generated UUID |
+| `title` | String(100) | Group name/title |
+| `subject` | String(100) | Main subject focus |
+| `leader_id` | String(50) | Foreign key to Users (group creator) |
+| `schedule` | String(200) | Meeting schedule description |
+| `location` | String(200) | Meeting location |
+| `max_members` | Integer | Maximum group size |
+| `description` | Text | Group description |
+| `status` | String(20) | Group status (active/inactive) |
+| `created_at` | Timestamp | Group creation date |
+
+**Example Group Data:**
+```json
+{
+  "id": "group_1701234567.890",
+  "title": "CS 230 Data Structures Study Group",
+  "subject": "Computer Science",
+  "leaderId": "user_1701234567.890_alice",
+  "schedule": "Mon/Wed 6-8pm",
+  "location": "Milner Library Room 304",
+  "maxMembers": 5,
+  "description": "Focused on mastering algorithms and data structures for CS 230",
+  "status": "active"
+}
+```
+
+---
+
+### 3. GroupMember Model
+
+Tracks which users belong to which groups.
+
+**Table:** `group_members`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | Integer | Primary key, auto-increment |
+| `group_id` | String(50) | Foreign key to StudyGroups |
+| `user_id` | String(50) | Foreign key to Users |
+| `role` | String(20) | Member role (leader/member) |
+| `status` | String(20) | Membership status (active/pending/removed) |
+| `joined_at` | Timestamp | Date user joined group |
+
+**Example Membership:**
+```json
+{
+  "groupId": "group_1701234567.890",
+  "userId": "user_1701234567.890_bob",
+  "role": "member",
+  "status": "active",
+  "joinedAt": "2024-11-20T18:30:00Z"
+}
+```
+
+---
+
+### 4. Message Model
+
+Stores all group chat messages.
+
+**Table:** `messages`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | String(50) | Primary key, generated UUID |
+| `group_id` | String(50) | Foreign key to StudyGroups |
+| `user_id` | String(50) | Foreign key to Users (sender) |
+| `content` | Text | Message text content |
+| `message_type` | String(20) | Type: text/image/announcement |
+| `image_url` | String(500) | URL if message contains image |
+| `created_at` | Timestamp | Message timestamp |
+
+**Example Message:**
+```json
+{
+  "id": "msg_1701234567.890",
+  "groupId": "group_1701234567.890",
+  "userId": "user_1701234567.890_alice",
+  "userName": "Alice Johnson",
+  "content": "Hey everyone! Don't forget we're meeting tomorrow at 6pm in Milner 304",
+  "messageType": "text",
+  "timestamp": "2024-11-20T15:45:00Z",
+  "reactions": []
+}
+```
+
+---
+
+### 5. MessageReaction Model
+
+Stores emoji reactions to messages.
+
+**Table:** `message_reactions`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | Integer | Primary key, auto-increment |
+| `message_id` | String(50) | Foreign key to Messages |
+| `user_id` | String(50) | Foreign key to Users |
+| `emoji` | String(10) | Emoji character |
+| `created_at` | Timestamp | Reaction timestamp |
+
+**Example Reaction:**
+```json
+{
+  "messageId": "msg_1701234567.890",
+  "userId": "user_1701234567.890_bob",
+  "emoji": "👍"
+}
+```
+
+---
+
+### 6. StudySession Model
+
+Represents scheduled study sessions for groups.
+
+**Table:** `study_sessions`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | String(50) | Primary key, generated UUID |
+| `group_id` | String(50) | Foreign key to StudyGroups |
+| `title` | String(100) | Session title |
+| `scheduled_time` | Timestamp | When session occurs |
+| `location` | String(200) | Session location |
+| `description` | Text | Session description |
+| `created_by` | String(50) | Foreign key to Users |
+| `created_at` | Timestamp | Session creation date |
+
+---
+
+### 7. SessionAttendee Model
+
+Tracks who's attending study sessions.
+
+**Table:** `session_attendees`
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | Integer | Primary key, auto-increment |
+| `session_id` | String(50) | Foreign key to StudySessions |
+| `user_id` | String(50) | Foreign key to Users |
+| `status` | String(20) | Attendance status (going/maybe/not_going) |
+| `created_at` | Timestamp | RSVP timestamp |
+
+---
+
+##  Key Relationships
+
+### One-to-Many Relationships:
+- **User → Messages:** One user can send many messages
+- **User → GroupMembers:** One user can join many groups
+- **StudyGroup → GroupMembers:** One group has many members
+- **StudyGroup → Messages:** One group has many messages
+- **Message → MessageReactions:** One message can have many reactions
+
+### Many-to-Many Relationships:
+- **Users ↔ StudyGroups:** Through `GroupMembers` junction table
+- **Users ↔ StudySessions:** Through `SessionAttendees` junction table
+
+---
+
+##  Example Data Flow
+
+### Creating an Account & Joining a Group:
+
+1. **User Registration:**
+   ```
+   POST /api/auth/register
+   → Creates User record
+   → Returns JWT token
+   ```
+
+2. **AI Matching:**
+   ```
+   POST /api/recommend
+   → Analyzes user's subjects, schedule, learning style
+   → Returns compatible groups
+   ```
+
+3. **Creating a Group:**
+   ```
+   POST /api/groups/create
+   → Creates StudyGroup record
+   → Creates GroupMember record (leader)
+   ```
+
+4. **Joining a Group:**
+   ```
+   POST /api/groups/{id}/join
+   → Creates GroupMember record (member)
+   → Updates group member count
+   ```
+
+5. **Sending Messages:**
+   ```
+   POST /api/chat/{group_id}/send
+   → Creates Message record
+   → Broadcasts to group members
+   ```
+
+---
+
+##  Data Security
+
+- **Passwords:** Hashed using bcrypt (never stored in plain text)
+- **Authentication:** JWT tokens with 7-day expiration
+- **Authorization:** All endpoints (except register/login) require valid JWT
+- **Data Isolation:** Users can only access their own groups and messages
+
+---
+
+##  Sample Database Queries
+
+### Get all groups for a user:
+```sql
+SELECT g.* FROM study_groups g
+JOIN group_members gm ON g.id = gm.group_id
+WHERE gm.user_id = 'user_1701234567.890_alice'
+AND gm.status = 'active';
+```
+
+### Get all messages in a group:
+```sql
+SELECT m.*, u.name as sender_name 
+FROM messages m
+JOIN users u ON m.user_id = u.id
+WHERE m.group_id = 'group_1701234567.890'
+ORDER BY m.created_at ASC;
+```
+
+### Get compatible study partners:
+```sql
+SELECT u.* FROM users u
+WHERE u.subjects && ARRAY['Computer Science']  -- Shares subjects
+AND u.id != 'current_user_id'
+LIMIT 10;
+```
+
+---
+
+This models documentation provides a complete overview of the StudySync database structure and relationships.
+
 ##  YouTube Video
 
 Here is a link to a YouTube video just explaning some small details.
 
 https://youtu.be/n0UL5QlW-M0
+
+**Last Updated:** Dec 2nd, 2025  
 
