@@ -661,6 +661,8 @@ For questions, issues, or contributions:
 **Version:** 1.0.0  
 **Status:** Active Development for MAD Contest
 
+---
+
 ## Model Documentation 
 
 # Database Models & Schema
