@@ -21,6 +21,7 @@ This repository contains the backend service for **StudySync**, an AI-powered st
 - [License](#license)
 - [Author](#author)
 - [Acknowledgements](#acknowledgements)
+- [Youtube Video]
 
 ---
 
@@ -659,3 +660,10 @@ For questions, issues, or contributions:
 **Last Updated:** November 2025  
 **Version:** 1.0.0  
 **Status:** Active Development for MAD Contest
+
+##  YouTube Video
+
+Here is a link to a YouTube video just explaning some small details.
+
+https://youtu.be/n0UL5QlW-M0
+
