@@ -22,7 +22,7 @@ This repository contains the backend service for **StudySync**, an AI-powered st
 - [Author](#author)
 - [Acknowledgements](#acknowledgements)
 - [YouTube Video](#youtube-video)
-
+  [Model Documentation](#model-documentation)
 ---
 
 ##  Overview
