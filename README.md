@@ -991,7 +991,7 @@ LIMIT 10;
 
 ---
 
-This models documentation provides a complete overview of the StudySync database structure and relationships.
+A complete overview of the StudySync database structure and relationships.
 
 ##  YouTube Video
 
